@@ -9,28 +9,26 @@ import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class PointsForPlasticRootController {
-	private static Connection con;
+	public Connection con = Main.con;
 	protected Pane root;
 
 	protected String UID;
 	protected String UPS;
 	protected User user;
 
-	@FXML private TextField txfUser;
-	@FXML private PasswordField txfPass;
-	public PointsForPlasticRootController(Connection con) {
-		this.con = con;
+	@FXML private TextField txfUser, txfName, txfEmail, txfUserName;
+	@FXML private PasswordField txfPass, txfPassword, txfVerify;
 
-	}
+
 
 	@FXML protected void handleLoginButton(ActionEvent event) throws SQLException {
 		UID = txfUser.getText();
@@ -53,8 +51,13 @@ public class PointsForPlasticRootController {
 	}
 
 	@FXML protected void handleCreateButton(ActionEvent event) throws IOException {
-		Parent loader = FXMLLoader.load(Main.class.getResource("PointsForPlasticCreate.fxml"));
+		Parent loader = FXMLLoader.load(getClass().getResource("PointsForPlasticCreate.fxml"));
+		//loader.setController(rootController);
 		Scene test = new Scene(loader);
-		Stage window = (Stage
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		window.setScene(test);
+		window.show();
 	}
+
+
 }
