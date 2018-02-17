@@ -18,19 +18,22 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class PointsForPlasticRootController {
+
+
 	public Connection con = Main.con;
+	public String user1;
 	protected Pane root;
 
 	protected String UID;
 	protected String UPS;
-	protected User user;
+	public User user;
 
 	@FXML private TextField txfUser, txfName, txfEmail, txfUserName;
 	@FXML private PasswordField txfPass, txfPassword, txfVerify;
 
 
 
-	@FXML protected void handleLoginButton(ActionEvent event) throws SQLException {
+	@FXML protected void handleLoginButton(ActionEvent event) throws SQLException, IOException {
 		UID = txfUser.getText();
 		UPS = txfPass.getText();
 
@@ -39,20 +42,28 @@ public class PointsForPlasticRootController {
 		ps.setString(2, UPS);
 
 		ResultSet rs = ps.executeQuery();
-
+		user1 = "asdfasdf";
 		if(rs.next()) {
-			String username = rs.getString(1);
+			user1 = rs.getString(1);
 			String name = rs.getString(2);
 			String email = rs.getString(4);
 			int points = rs.getInt(5);
 
-			user = new User(username, name, email, points);
+			//user = new User(username, name, email, points);
 		}
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("PointsForPlasticAccountLoggedIn.fxml"));
+		PointsForPlasticAccountLoggedInController controller = new PointsForPlasticAccountLoggedInController(user1);
+		loader.setController(controller);
+		Parent parent = loader.load();
+		//Parent loader = FXMLLoader.load(getClass().getResource("PointsForPlasticAccountLoggedIn.fxml"));
+		Scene test = new Scene(parent);
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		window.setScene(test);
+		window.show();
 	}
 
 	@FXML protected void handleCreateButton(ActionEvent event) throws IOException {
 		Parent loader = FXMLLoader.load(getClass().getResource("PointsForPlasticCreate.fxml"));
-		//loader.setController(rootController);
 		Scene test = new Scene(loader);
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 		window.setScene(test);
