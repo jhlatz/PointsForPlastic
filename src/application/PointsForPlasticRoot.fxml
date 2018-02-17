@@ -5,6 +5,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,7 +14,10 @@
 
 <SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PointsForPlasticRootController">
    <items>
-      <ImageView fitHeight="404.0" fitWidth="229.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="image" fitHeight="404.0" fitWidth="229.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@8848168-dollar-bill-recycle-sign-isolated-on-white.jpg" />
+         </image></ImageView>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="109.0" prefWidth="365.0" text="Points For Plastic" />

@@ -5,24 +5,26 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="330.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="457.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TabPane layoutY="8.0" prefHeight="230.0" prefWidth="330.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutY="1.0" prefHeight="401.0" prefWidth="457.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Account">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="261.0" prefWidth="452.0">
                      <children>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="197.0" prefWidth="330.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="457.0">
                            <children>
                               <Label layoutX="71.0" layoutY="37.0" text="Welcome:" />
                               <Label layoutX="64.0" layoutY="67.0" text="Your Points:" />
-                              <Label layoutX="21.0" layoutY="136.0" text="Coupons Available:" />
-                              <ListView layoutX="165.0" layoutY="109.0" prefHeight="75.0" prefWidth="160.0" />
+                              <Label layoutX="21.0" layoutY="136.0" text="Your Coupons:" />
+                              <ListView fx:id="userCoupons" layoutX="165.0" layoutY="109.0" prefHeight="251.0" prefWidth="290.0" />
                               <Label fx:id="user" layoutX="153.0" layoutY="37.0" />
                               <Label fx:id="points" layoutX="153.0" layoutY="67.0" />
                            </children>
@@ -35,18 +37,26 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="56.0" layoutY="84.0" text="Code:" />
-                        <TextField layoutX="143.0" layoutY="79.0" />
-                        <Button layoutX="133.0" layoutY="128.0" mnemonicParsing="false" text="Enter" />
+                        <Label layoutX="58.0" layoutY="69.0" text="Code:" />
+                        <TextField fx:id="code" layoutX="135.0" layoutY="64.0" />
+                        <Button layoutX="201.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleEnterCode" text="Enter" />
+                        <Label fx:id="message" layoutX="143.0" layoutY="26.0" text="Code Entered Succesfully!" textFill="#07d03c" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Your Coupons">
+            <Tab text="Coupons">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="333.0" prefWidth="600.0">
                      <children>
-                        <ListView layoutX="109.0" layoutY="27.0" prefHeight="130.0" prefWidth="165.0" />
+                        <TableView fx:id="allCoupons" layoutY="8.0" prefHeight="200.0" prefWidth="457.0">
+                          <columns>
+                            <TableColumn fx:id="couponName" prefWidth="360.0" text="Name" />
+                            <TableColumn fx:id="couponPrice" prefWidth="96.0" text="Price" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="196.0" layoutY="242.0" mnemonicParsing="false" onAction="#handlePurchase" text="Purchase!" />
+                        <Label fx:id="alert" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="292.0" prefHeight="21.0" prefWidth="457.0" />
                      </children>
                   </AnchorPane>
               </content>

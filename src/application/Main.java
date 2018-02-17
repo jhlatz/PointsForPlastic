@@ -63,6 +63,7 @@ public class Main extends Application {
             // Show the scene containing the root layout.
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
+            primaryStage.setTitle("Points For Plastic");
             primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
