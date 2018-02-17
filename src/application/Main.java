@@ -2,6 +2,7 @@ package application;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javafx.application.Application;
@@ -90,7 +91,7 @@ public class Main extends Application {
 		login.setOnAction(new loginEventHandler());
 
 		Button createAccount = new Button("Start Saving!");
-		createAccount.setOnAction(new createAccountEventHandler());
+		createAccount.setOnAction(new createAccountPageEventHandler());
 
 		buttons.getChildren().addAll(login, createAccount);
 
@@ -99,7 +100,7 @@ public class Main extends Application {
 		return gridLogin;
 	}
 
-	private class createAccountEventHandler implements EventHandler<ActionEvent> {
+	private class createAccountPageEventHandler implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent event) {
 			root = createAccountPane();
@@ -107,6 +108,8 @@ public class Main extends Application {
 			stage.setScene(menu);
 		}
 	}
+
+
 	private class loginEventHandler implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent event) {
@@ -163,10 +166,34 @@ public class Main extends Application {
 		TextField txfConfirmPassword = new TextField();
 		account.add(txfConfirmPassword, col--, row++);
 
-		menu.getChildren().add(account);
+		Button create = new Button("Create Account");
+		create.setOnAction(e -> {
+			try {
+				if(txfPassword.getText().equals(txfConfirmPassword.getText())) {
+					String query = "INSERT INTO users (username, displayname, password, email, creation_date) VALUE (?,?,?,?,CURRENT_DATE)";
+					PreparedStatement ps = con.prepareStatement(query);
+
+
+
+					ps.setString(1, txfuserName.getText());
+					ps.setString(2, txfName.getText());
+					ps.setString(3, txfPassword.getText());
+					ps.setString(4, txfEmail.getText());
+					ps.executeUpdate();
+				} else {
+					System.out.println("Passwords broken");
+				}
+
+			} catch (SQLException e1) {
+				System.out.println("Shits broken yo");
+			}
+		});
+
+		menu.getChildren().addAll(account,create);
 
 		return menu;
 	}
+
 
 	public static void connect() throws SQLException {
 		con = DriverManager.getConnection(url, user, password);
