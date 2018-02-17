@@ -9,12 +9,15 @@ import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -32,9 +35,10 @@ public class Main extends Application {
 
 	protected Stage stage;
 	protected Scene menu,loginMenu;
-	protected TextField txfSearch, numEntries, txfID, txfPW;
+	protected TextField txfSearch, numEntries, txfID;
+	protected PasswordField txfPW;
 	protected Label txtInfo;
-	protected Pane root;
+	protected SplitPane root;
 	protected GridPane login;
 	private ComboBox<String> genres;
 	private String UID, UPS;
@@ -53,13 +57,15 @@ public class Main extends Application {
 			System.out.println("Could not connect!");
 		}
 		try {
-			stage = primaryStage;
-			login = buildLoginPane();
-			loginMenu = new Scene(login);
-			loginMenu.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			stage.setTitle("Points For Plastic");
-			stage.setScene(loginMenu);
-			stage.show();
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("PointsForPlasticRoot.fxml"));
+            PointsForPlasticRootController rootController = new PointsForPlasticRootController(con);
+            loader.setController(rootController);
+            root = (SplitPane) loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -83,7 +89,7 @@ public class Main extends Application {
 		Label pw = new Label("Password");
 		gridLogin.add(pw, 0, row++);
 
-		txfPW = new TextField();
+		txfPW = new PasswordField();
 		gridLogin.add(txfPW, 0, row++);
 
 		HBox buttons = new HBox();
@@ -106,7 +112,7 @@ public class Main extends Application {
 	private class createAccountPageEventHandler implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent event) {
-			root = createAccountPane();
+			//root = createAccountPane();
 			menu = new Scene(root);
 			stage.setScene(menu);
 		}
@@ -134,7 +140,7 @@ public class Main extends Application {
 
 					user1 = new User(username, name, email, points);
 				}
-				root = buildMenuPane();
+				//root = buildMenuPane();
 				menu = new Scene(root);
 				menu.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				//stage.setMaximized(true);
@@ -179,13 +185,13 @@ public class Main extends Application {
 		Label password = new Label("Password: ");
 		account.add(password, col++, row);
 
-		TextField txfPassword = new TextField();
+		PasswordField txfPassword = new PasswordField();
 		account.add(txfPassword, col--, row++);
 
 		Label confirmPassword = new Label("Confirm Password: ");
 		account.add(confirmPassword, col++, row);
 
-		TextField txfConfirmPassword = new TextField();
+		PasswordField txfConfirmPassword = new PasswordField();
 		account.add(txfConfirmPassword, col--, row++);
 
 		Button create = new Button("Create Account");
