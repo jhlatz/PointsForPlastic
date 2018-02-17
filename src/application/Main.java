@@ -3,6 +3,7 @@ package application;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.application.Application;
@@ -37,6 +38,8 @@ public class Main extends Application {
 	protected GridPane login;
 	private ComboBox<String> genres;
 	private String UID, UPS;
+
+	private User user1;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -113,12 +116,31 @@ public class Main extends Application {
 	private class loginEventHandler implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent event) {
-			UID = txfID.getText();
-			UPS = txfPW.getText();
-			//root = buildMenuPane();
-			//menu = new Scene(root);
-			//menu.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			//stage.setMaximized(true);
+			try {
+				UID = txfID.getText();
+				UPS = txfPW.getText();
+
+				PreparedStatement ps = con.prepareStatement("SELECT * FROM users AS u WHERE u.username = ? AND u.password = ?;");
+				ps.setString(1, UID);
+				ps.setString(2, UPS);
+
+				ResultSet rs = ps.executeQuery();
+
+				if(rs.next()) {
+					String username = rs.getString(1);
+					String name = rs.getString(2);
+					String email = rs.getString(4);
+					int points = rs.getInt(5);
+
+					user1 = new User(username, name, email, points);
+				}
+				root = buildMenuPane();
+				menu = new Scene(root);
+				menu.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				//stage.setMaximized(true);
+			} catch (SQLException e) {
+				//
+			}
 		}
 	}
 
@@ -173,8 +195,6 @@ public class Main extends Application {
 					String query = "INSERT INTO users (username, displayname, password, email, creation_date) VALUE (?,?,?,?,CURRENT_DATE)";
 					PreparedStatement ps = con.prepareStatement(query);
 
-
-
 					ps.setString(1, txfuserName.getText());
 					ps.setString(2, txfName.getText());
 					ps.setString(3, txfPassword.getText());
@@ -194,6 +214,12 @@ public class Main extends Application {
 		return menu;
 	}
 
+	public static VBox buildMenuPane() {
+		VBox main = new VBox();
+
+
+		return main;
+	}
 
 	public static void connect() throws SQLException {
 		con = DriverManager.getConnection(url, user, password);
