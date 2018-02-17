@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="330.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane prefHeight="230.0" prefWidth="330.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Account">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="261.0" prefWidth="452.0">
+                     <children>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="197.0" prefWidth="330.0">
+                           <children>
+                              <Label layoutX="71.0" layoutY="37.0" text="Welcome:" />
+                              <Label layoutX="64.0" layoutY="67.0" text="Your Points:" />
+                              <Label layoutX="21.0" layoutY="136.0" text="Coupons Available:" />
+                              <TextField layoutX="149.0" layoutY="32.0" />
+                              <TextField layoutX="149.0" layoutY="62.0" />
+                              <ListView layoutX="153.0" layoutY="99.0" prefHeight="75.0" prefWidth="160.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Enter Code">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="56.0" layoutY="84.0" text="Enter Code:" />
+                        <TextField layoutX="143.0" layoutY="79.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Your Coupons">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="333.0" prefWidth="600.0">
+                     <children>
+                        <ListView layoutX="109.0" layoutY="27.0" prefHeight="130.0" prefWidth="165.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</Pane>
